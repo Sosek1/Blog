@@ -10,13 +10,13 @@ const Topbar = () => {
             <p className="font-sans text-h2-mobile font-h2-mobile text-dark/100 mr-[10px]">Sosek</p>
             <p className="font-sans text-h2-mobile font-h2-mobile text-blue/700">Blog</p>
         </div>
-        {!loginCtx.isLoggedIn && <div className="flex flex-row">
-            <p className="font-sans text-h3-mobile font-h3-mobile text-dark/100" onClick={()=>loginCtx.onLogin()}>Log in</p>
+        {!loginCtx.isLoggedIn && !loginCtx.loginScreen && <div className="flex flex-row">
+            <p className="font-sans text-h4-mobile font-h3-mobile text-dark/100" onClick={()=>loginCtx.onLogin()}>Log in</p>
         </div>}
         {!loginCtx.isLoggedIn && loginCtx.loginScreen && <div className="flex flex-row">
-            <p className="font-sans text-h3-mobile font-h3-mobile text-dark/100">Go back</p>
+            <p className="font-sans text-h4-mobile font-h3-mobile text-dark/100" onClick={()=>loginCtx.onGoBack()}>Go back</p>
         </div>}
-        {loginCtx.isLoggedIn && <div className="flex flex-row">
+        {loginCtx.isLoggedIn && !loginCtx.loginScreen && <div className="flex flex-row">
             <p className="font-sans text-h3-mobile font-h3-mobile text-dark/100">Log out</p>
         </div>}
     </div>

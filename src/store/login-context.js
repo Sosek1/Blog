@@ -1,9 +1,10 @@
-import React, { useState} from "react";
+import React, {createContext, useState} from "react";
 
 const LoginContext = React.createContext({
     isLoggedIn: false,
     loginScreen:false,
     onLogin: () => {},
+    onGoBack: () => {}
 });
 
 export const LoginContextProvider = (props) => {
@@ -11,17 +12,22 @@ export const LoginContextProvider = (props) => {
     const [loginScreen, setLoginScreen] = useState(false);
 
     const loginHandler = () =>{
-        console.log("click")
+        setLoginScreen(true);
+    }
+
+    const goBackHandler = () => {
+        setLoginScreen(false);
     }
 
     return(
         <LoginContext.Provider 
         value={{
-            isLoggedIn: isLoggedIn,
-            loginScreen: loginScreen,
-            onLogin:loginHandler
+            isLoggedIn,
+            loginScreen,
+            onLogin: loginHandler,
+            onGoBack: goBackHandler
         }}>
-            {props.chlidren}
+            {props.children}
         </LoginContext.Provider>
     );
 };
