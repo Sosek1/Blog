@@ -4,20 +4,27 @@ const LoginContext = React.createContext({
     isLoggedIn: false,
     loginScreen:false,
     onLogin: () => {},
-    onGoBack: () => {}
+    onLogout: () => {},
+    onLoggedIn: () => {}
 });
 
 export const LoginContextProvider = (props) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [loginScreen, setLoginScreen] = useState(false);
+    
 
-    const loginHandler = () =>{
+    const loginHandler = () => {
         setLoginScreen(true);
     }
 
-    const goBackHandler = () => {
+    const logoutHandler = () => {
         setLoginScreen(false);
     }
+
+    const loggedInHandler = () => {
+        setIsLoggedIn(true);
+    }
+
 
     return(
         <LoginContext.Provider 
@@ -25,7 +32,8 @@ export const LoginContextProvider = (props) => {
             isLoggedIn,
             loginScreen,
             onLogin: loginHandler,
-            onGoBack: goBackHandler
+            onLogout: logoutHandler,
+            onLoggedIn: loggedInHandler
         }}>
             {props.children}
         </LoginContext.Provider>

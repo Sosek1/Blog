@@ -7,6 +7,19 @@
         box-shadow: 3px 2px 4px rgba(0, 0, 0, 0.1), -4px -4px 4px rgba(0, 0, 0, 0.1);
     }
     .custom-width{
-        width:calc(100% - 40px);
+        width:calc(100% - 40px);  
     }
+
+    .overlay{
+        background: rgba(0, 0, 0, 0.76);
+        filter: blur(10px); 
+    }
+
+    .scroll::-webkit-scrollbar{
+        display:none;
+        -ms-overflow-style: none;  
+        scrollbar-width: none;  
+    }
+
+   
 }

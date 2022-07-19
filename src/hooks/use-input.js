@@ -12,6 +12,10 @@ const useInput = (validateValue) => {
         setEnteredValue(event.target.value);
     }
 
+    const valueClickHandler = (value) => {
+        setEnteredValue(value);
+    }
+
     const inputTouchedHandler = () => {
         setInputIsTouched(true);
     }
@@ -33,6 +37,7 @@ const useInput = (validateValue) => {
         isValid: valueIsValid,
         hasError: valueHasError,
         valueChangeHandler,
+        valueClickHandler,
         inputTouchedHandler,
         inputLeftHandler,
         reset

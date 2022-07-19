@@ -1,18 +1,11 @@
 import React, {useContext, useState} from "react";
 import useInput from "../../hooks/use-input";
+import LoginContext from "../../store/login-context";
 import Topbar from "../UI/Topbar";
+import { loginValidation, passwordValidation } from "./LoginDataAuth";
 
 const Login = () => {
-
-    const loginValidation = (login) => {
-        const loginPattern = /^[A-Z]([a-zA-Z0-9]){5,8}$/;
-        return loginPattern.test(login)  
-    }
-
-    const passwordValidation = (password) => {
-        const passwordPattern = /^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]{6,}$/g;
-        return passwordPattern.test(password)
-    }
+    const loginCtx = useContext(LoginContext)
 
     const {
         value: enteredLogin,
@@ -53,10 +46,13 @@ const Login = () => {
         if(!enteredPasswordIsValid){
             return;
         }
+
         console.log(enteredLogin);
         console.log(enteredPassword);
         resetLoginInput('');
         resetpasswordInput('');
+        loginCtx.onLoggedIn();
+        loginCtx.onLogout();
     }
 
     const buttonStyles = formIsValid 
@@ -75,7 +71,6 @@ const Login = () => {
         ? "w-[100%] mb-[20px] text-h4-mobile font-h4-mobile text-dark/300 border-b border-error focus:outline-none placeholder-dark/500"
         :"w-[100%] mb-[20px] text-h4-mobile font-h4-mobile text-dark/300 border-b border-blue/700 focus:outline-none placeholder-dark/500");
 
-
     return (
     <>
     <Topbar />
@@ -89,7 +84,7 @@ const Login = () => {
             {loginHasError && loginIsLeft && <p className="text-p-mobile font-p-mobile text-error">Login should start with capital letter, do not contain whitespace and special characters and have 5-8 characters.</p>}
         </div>
         <div>
-        <input type="text" id="password" onChange={passwordChangeHandler} onBlur={passwordLeftHandler} onInput={passwordTouchedHandler} value={enteredPassword} placeholder="Password" className={passwordInputStyles}></input>
+        <input type="text" id="password" onChange={passwordChangeHandler} onBlur={passwordLeftHandler} onInput={passwordTouchedHandler} value={enteredPassword} placeholder="Password" className={passwordInputStyles} ></input>
             {passwordHasError && passwordIsLeft && <p className="text-p-mobile font-p-mobile text-error">Password should not contain whitespace and have at least 6 characters.</p>}
         </div>
         <button className={buttonStyles}>Start managing</button>
@@ -97,6 +92,4 @@ const Login = () => {
     </>
     )
 }
-
 export default Login;
-

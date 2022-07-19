@@ -1,8 +1,12 @@
 import Topbar from "../UI/Topbar";
+
 const Homepage = () => {
 
     return(
-        <Topbar />  
+        <>
+            <Topbar />  
+        </>
+        
     )
 }
 

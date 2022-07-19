@@ -1,16 +1,23 @@
-import React, {useContext} from "react";
+import React, {useContext, useState, useEffect, useCallback} from "react";
 import LoginContext from "./store/login-context";
-import AdminArticles from "./components/Admin/AdminArticles";
+import Articles from "./components/Admin/ArticlesDashboard/Articles";
 import Homepage from "./components/Homepage/HomePage";
-import Login from "./components/Login/Login";
+import LoginForm from "./components/Login/LoginForm";
+import Upload from "./components/Admin/ArticlesUpload/Upload";
+import ArticlesContext from "./store/articles-context";
 
 function App() {
   const loginCtx = useContext(LoginContext);
+  const articlesCtx = useContext(ArticlesContext);
+
   return (
     <>
-      {!loginCtx.isLoggedIn && !loginCtx.loginScreen && <Homepage />}
-      {!loginCtx.isLoggedIn && loginCtx.loginScreen && <Login/>}
-      {loginCtx.isLoggedIn && !loginCtx.loginScreen && <AdminArticles/>}
+      {/* {!loginCtx.isLoggedIn && !loginCtx.loginScreen && <Homepage />}
+      {!loginCtx.isLoggedIn && loginCtx.loginScreen && <LoginForm/>} */}
+      <Upload/>
+      <Articles/>
+        
+        
     </>
   );
 }
