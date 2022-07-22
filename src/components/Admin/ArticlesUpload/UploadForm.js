@@ -9,7 +9,6 @@ import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutl
 import { ThemeProvider } from '@mui/system';
 import {theme} from "../../UI/theme";
 
-
 const isEmpty = value => value.trim() === '';
 
 const UploadForm = (props) => {
@@ -55,7 +54,7 @@ const UploadForm = (props) => {
     const articlesCtx = useContext(ArticlesContext);
 
     const addArticleHandler = async (article) => {
-        const response = await fetch('https://sosek-blog-default-rtdb.europe-west1.firebasedatabase.app/User1/Articles.json',{
+        const response = await fetch('https://blog-ef31e-default-rtdb.europe-west1.firebasedatabase.app/Articles.json',{
             method: 'POST',
             body: JSON.stringify(article),
             headers:{
@@ -65,7 +64,7 @@ const UploadForm = (props) => {
     }
 
     const addAuthorHandler = async (author) => {
-        const response = await fetch('https://sosek-blog-default-rtdb.europe-west1.firebasedatabase.app/User1/Authors.json',{
+        const response = await fetch('https://blog-ef31e-default-rtdb.europe-west1.firebasedatabase.app/Authors.json',{
             method: 'POST',
             body: JSON.stringify(author),
             headers:{
@@ -126,7 +125,7 @@ const UploadForm = (props) => {
             addAuthorHandler(authorData);
         } 
 
-        // titleReset('');
+        titleReset('');
         subtitleReset('');
         authorReset('');
         articleReset('');

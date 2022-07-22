@@ -12,12 +12,10 @@ function App() {
 
   return (
     <>
-      {/* {!loginCtx.isLoggedIn && !loginCtx.loginScreen && <Homepage />}
-      {!loginCtx.isLoggedIn && loginCtx.loginScreen && <LoginForm/>} */}
+      
+      {/* {<LoginForm/>} */}
       <Upload/>
-      <Articles/>
-        
-        
+      {/* <Articles/> */}
     </>
   );
 }

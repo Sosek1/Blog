@@ -6,7 +6,7 @@ const AuthorsList = (props) => {
 
     const fetchAuthorsHandler = useCallback(async () => {
         try{
-            const response = await fetch('https://sosek-blog-default-rtdb.europe-west1.firebasedatabase.app/User1/Authors.json');
+            const response = await fetch('https://blog-ef31e-default-rtdb.europe-west1.firebasedatabase.app/Authors.json');
             
             if (!response.ok){
                 return new Error("Something went wrong!");

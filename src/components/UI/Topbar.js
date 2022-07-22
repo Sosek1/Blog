@@ -3,8 +3,6 @@ import LoginContext from "../../store/login-context";
 const Topbar = () => {
     const loginCtx = useContext(LoginContext);
 
-
-
     return (
     <>
     <header className="h-[60px] bg-light-900 ml-[20px] mr-[20px] flex items-center justify-between">

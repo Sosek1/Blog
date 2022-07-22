@@ -17,7 +17,7 @@ const DeleteModal = (props) => {
     const articlesCtx = useContext(ArticlesContext);
 
     const deleteArticleHandler = async (id) => {
-        const respone = await fetch(`https://sosek-blog-default-rtdb.europe-west1.firebasedatabase.app/User1/Articles/${id}.json`,{
+        const respone = await fetch(`https://blog-ef31e-default-rtdb.europe-west1.firebasedatabase.app/Articles/${id}.json`,{
             method:'DELETE',
             body: JSON.stringify(),
             headers:{

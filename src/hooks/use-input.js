@@ -1,7 +1,11 @@
-import {useState} from 'react';
+import {useState, useContext} from 'react';
+import ArticlesContext from '../store/articles-context';
 
 const useInput = (validateValue) => {
-    const [enteredValue, setEnteredValue] = useState('');
+
+    const articlesCtx = useContext(ArticlesContext);
+
+    const [enteredValue, setEnteredValue] = useState("");
     const [inputIsTouched, setInputIsTouched] = useState(false);
     const [inputIsLeft, setInputIsLeft] = useState(false);
 

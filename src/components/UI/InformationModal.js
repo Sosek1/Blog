@@ -15,8 +15,6 @@ const InformationModal = () => {
         return;
     }
 
-    console.log(articlesCtx.categories)
-
     const getArticlesIndex = () => {
         for (const i in articlesCtx.articles){
             if(articlesCtx.articles[i].id===articlesCtx.clickedArticle){

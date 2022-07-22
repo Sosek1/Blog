@@ -40,7 +40,6 @@ export const ArticlesContextProvider = (props) => {
         setAuthors(currentAuthor);
     }
     
-
     const addCategoriesHandler = (categories) => {
         setCategories(categories);
     }

@@ -16,8 +16,8 @@ const useFetch = () => {
         articlesCtx.onError(false);
 
         try{
-            const response = await fetch('https:sosek-blog-default-rtdb.europe-west1.firebasedatabase.app/User1/Articles.json');
-
+            const response = await fetch('https://blog-ef31e-default-rtdb.europe-west1.firebasedatabase.app/Articles.json');
+            
             if(!response.ok){
                 return new Error("Something went wrong!");
             }

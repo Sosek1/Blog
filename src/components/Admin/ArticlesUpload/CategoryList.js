@@ -82,8 +82,8 @@ const CategoryList = (props) => {
 
    
     
-    const defaultStyle = "p-[2px] text-p-mobile font-h3-mobile text-light/900"
-    const activeStyle = "p-[2px] text-p-mobile font-h3-mobile text-light/900 border-[1px] border-light/900 rounded-lg"
+    const defaultStyle = "p-[2px] text-p-mobile font-h3-mobile text-light/900 border-[1px] border-blue/700 rounded-lg";
+    const activeStyle = "p-[2px] text-p-mobile font-h3-mobile text-light/900 border-[1px] border-light/900 rounded-lg";
 
 
     return( 
