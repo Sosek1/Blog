@@ -1,4 +1,4 @@
-import {useState, useEffect, useContext, useCallback} from 'react'
+import {useEffect, useContext, useCallback} from 'react'
 import ArticlesContext from "../../../store/articles-context";
 
 const AuthorsList = (props) => {
@@ -14,7 +14,7 @@ const AuthorsList = (props) => {
 
             const data = await response.json();
 
-            const loadedAuthors = []
+            const loadedAuthors = [];
             for(const key in data){
                 loadedAuthors.push({
                     id:key,
@@ -24,7 +24,7 @@ const AuthorsList = (props) => {
 
             articlesCtx.onAddAuthors(loadedAuthors);
         }catch(error){
-            articlesCtx.onError(error.message)
+            articlesCtx.onError(error.message);
         }
     },[])
 
@@ -39,7 +39,6 @@ const AuthorsList = (props) => {
             ))}
         </ul>
     )
-
 }
 
 export default AuthorsList;

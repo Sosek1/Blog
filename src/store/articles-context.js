@@ -1,36 +1,39 @@
-import React, {useState} from 'react'
+import React, { useState} from 'react';
 
 const ArticlesContext = React.createContext({
     articles:[],
     authors:[],
     categories:[],
+    error:false,
     isLoading:false,
     clickedArticle: null,
-    deleteModal: false,
-    infoModal: false,
-    uploadModal:false,
+    clickedArticleIndex:null,
     onAddArticles:()=>{},
     onAddAuthors:()=>[],
     onAddCategories:()=>[],
+    onDeleteArticle:()=>{}, 
     onClickArticle:()=>{},
+    onClickArticleIndex:()=>{},
+    onLoading:()=>{},
+    onError:()=>{},
+
+    deleteModal: false,
+    infoModal: false,
     onShowDeleteModal:()=>{},
     onShowInfoModal:()=>{},
-    onShowUploadModal:()=>{},
-    onDeleteArticle:()=>{},
-    onLoading:()=>{},
-    onError:()=>{}
-})
+});
 
 export const ArticlesContextProvider = (props) => {
     const [articles, setArticles] = useState([]);
     const [authors, setAuthors] = useState([]);
-    const [categories, setCategories] = useState([])
+    const [categories, setCategories] = useState([]);
     const [error, setError] = useState(null);
     const [isLoading, setLoading] = useState(false);
     const [clickedArticle, setClickedArticle] = useState(null);
+    const [clickedArticleIndex, setClickedArticleIndex] = useState(null);
+
     const [deleteModal, setShowDeleteModal] = useState(false);
     const [infoModal, setShowInfoModal] = useState(false);
-    const [uploadModal, setShowUploadModal] = useState(false);
 
     const addArticleHandler = (articleData) => {
         setArticles(articleData);
@@ -39,39 +42,41 @@ export const ArticlesContextProvider = (props) => {
     const addAuthorHandler = (currentAuthor) => {
         setAuthors(currentAuthor);
     }
-    
+
     const addCategoriesHandler = (categories) => {
         setCategories(categories);
     }
-
-    // console.log(categories)
 
     const deleteArticleHandler = (id) => {
         setArticles(articles.filter(article => article.id !== id));
     }
 
-    const clickArticleHandler = (id) => {
-        setClickedArticle(id);
-    }
-    
-    const deleteModalHandler = (show) => {
-        setShowDeleteModal(show);
-    }
-
-    const  infoModalHander = (show) => {
-        setShowInfoModal(show)  
-    }
-
-    const  uploadModalHander = (show) => {
-        setShowUploadModal(show)  
+    const errorHandler = (value) => {
+        setError(value);
     }
 
     const isLoadingHandler = (value) => {
         setLoading(value);
     }
 
-    const errorHandler = (value) => {
-        setError(value);
+    const clickArticleHandler = (id) => {
+        setClickedArticle(id);
+    }
+
+    const clickArticleIndexHandler = (id) => { 
+            for (const i in articles){
+                if(articles[i].id===clickedArticle){
+                    setClickedArticleIndex(i)
+                }
+            }   
+    }
+
+    const deleteModalHandler = (show) => {
+        setShowDeleteModal(show);
+    }
+
+    const infoModalHander = (show) => {
+        setShowInfoModal(show)  ;
     }
 
     return(
@@ -79,21 +84,22 @@ export const ArticlesContextProvider = (props) => {
             articles,
             authors,
             categories,
+            error,
             isLoading,
             clickedArticle,
+            clickedArticleIndex,
             deleteModal,
             infoModal,
-            uploadModal,
             onAddArticles: addArticleHandler,
             onAddAuthors:addAuthorHandler,
             onAddCategories: addCategoriesHandler,
+            onDeleteArticle: deleteArticleHandler,
+            onError: errorHandler,
+            onLoading: isLoadingHandler,
             onClickArticle: clickArticleHandler,
+            onClickArticleIndex:clickArticleIndexHandler,
             onShowDeleteModal: deleteModalHandler,
             onShowInfoModal: infoModalHander,
-            onShowUploadModal: uploadModalHander,
-            onDeleteArticle: deleteArticleHandler,
-            onLoading: isLoadingHandler,
-            onError: errorHandler,
         }}>
             {props.children}
         </ArticlesContext.Provider>

@@ -1,5 +1,5 @@
 const loginValidation = (login) => {
-    const loginPattern = /^[A-Z][a-zA-Z0-9]{5,9}$/;
+    const loginPattern = /^[A-Z][a-zA-Z0-9]{5,8}$/;
     return loginPattern.test(login)  
 }
 

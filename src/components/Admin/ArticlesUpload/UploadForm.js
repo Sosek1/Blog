@@ -12,7 +12,6 @@ import {theme} from "../../UI/theme";
 const isEmpty = value => value.trim() === '';
 
 const UploadForm = (props) => {
-
     const {
         fetchHandler: fetchArticlesHandler
      } = useFetch();
@@ -51,6 +50,12 @@ const UploadForm = (props) => {
          fetchArticlesHandler();
      },[fetchArticlesHandler]);
 
+     let today = new Date();
+     let day = String(today.getDate()).padStart(2,'0');
+     let month = String(today.getMonth() + 1).padStart(2,'0');
+     let year = String(today.getFullYear());
+     const todaysDate = day + "." + month + "." + year;
+
     const articlesCtx = useContext(ArticlesContext);
 
     const addArticleHandler = async (article) => {
@@ -88,11 +93,8 @@ const UploadForm = (props) => {
         setshowAuthorsList(!showAuthorsList)
     }
 
-
     const submitFormHandler = (event) => {
         event.preventDefault();
-
-        console.log(subtitleIsValid)
 
         // if(!titleIsValid){
         //     return;
@@ -112,7 +114,8 @@ const UploadForm = (props) => {
             subtitle:subtitleValue,
             author:authorValue,
             categories: articlesCtx.categories,
-            article:articleValue
+            article:articleValue,
+            date:todaysDate
         }
 
         const authorData = {
@@ -129,11 +132,10 @@ const UploadForm = (props) => {
         subtitleReset('');
         authorReset('');
         articleReset('');
+        articlesCtx.onAddCategories([]);
     }
 
-
     return (
-        <>
             <form onSubmit={submitFormHandler} className="flex flex-col  justify-between">
                 <label className="ml-[20px] mb-[20px] font-sans text-h4-mobile font-h4-mobile text-dark/500">Title</label>
                 <input type="text" id="title" onChange={titleChangeHandler} value={titleValue} className="custom-width h-[40px] p-[5px] mb-[20px] ml-[20px] text-p-mobile text-dark/100 font-h4-mobile bg-light/900 custom-box-shadow rounded-lg focus:outline-none" placeholder="Enter the title"></input>
@@ -149,12 +151,11 @@ const UploadForm = (props) => {
                     {showAuthorsList && <AuthorsList authorsName={authorClickHandler} authorsList={authorsListHandler}/>}
                 </div>
                 <label className="ml-[20px] mb-[20px] font-sans text-h4-mobile font-h4-mobile text-dark/500">Category</label>
-                <CategoryList />
+                <CategoryList/>
                 <label className="ml-[20px] mb-[20px] font-sans text-h4-mobile font-h4-mobile text-dark/500">Article's content</label>
                 <textarea id="article" name="article" onChange={articleChangeHandler} value={articleValue} className="custom-width min-h-[300px] mb-[20px] ml-[20px] p-[5px] focus:outline-none border-2 border-blue/700 rounded-lg" placeholder="text"></textarea>
                 <button className="h-[40px] custom-width ml-[20px] mb-[20px] text-h4-mobile font-h4-mobile text-light/900 bg-blue/700 rounded-lg">Upload an article</button>
             </form>
-        </>
     )
 }
 

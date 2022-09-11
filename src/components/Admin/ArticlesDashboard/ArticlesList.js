@@ -1,10 +1,9 @@
 import { useEffect, useContext } from "react";
-import Article from "./Article"
+import Article from "./Article";
 import ArticlesContext from "../../../store/articles-context";
 import useFetch from "../../../hooks/use-fetch";
 
 const ArticlesList = () => {
-
     const {
        fetchHandler: fetchArticlesHandler
     } = useFetch();
@@ -18,6 +17,7 @@ const ArticlesList = () => {
 
     const articleIdHandler = (id) => {
         articlesCtx.onClickArticle(id);
+        articlesCtx.onClickArticleIndex(id);
     }
 
     const infoModalHandler = () => {

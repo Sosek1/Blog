@@ -3,14 +3,7 @@ import ArticlesContext from '../store/articles-context';
 
 const useFetch = () => {
     const articlesCtx = useContext(ArticlesContext)
-
-    let today = new Date();
-    let day = String(today.getDate()).padStart(2,'0');
-    let month = String(today.getMonth() + 1).padStart(2,'0');
-    let year = String(today.getFullYear());
-    const todaysDate = day + "." + month + "." + year;
     
-
     const fetchArticlesHandler = useCallback(async () => {
         articlesCtx.onLoading(true);
         articlesCtx.onError(false);
@@ -24,7 +17,7 @@ const useFetch = () => {
 
             const data = await response.json();
            
-            const loadedArticles = []
+            const loadedArticles = [];
             for(const key in data){
                 loadedArticles.push({
                     id:key,
@@ -33,16 +26,15 @@ const useFetch = () => {
                     author:data[key].author,
                     categories:data[key].categories,
                     article:data[key].article,
-                    date:todaysDate
+                    date:data[key].date
                 })
             }
 
-            articlesCtx.onAddArticles(loadedArticles)
+            articlesCtx.onAddArticles(loadedArticles);
         }catch(error){
-            articlesCtx.onError(error.message)
+            articlesCtx.onError(error.message);
         }
         articlesCtx.onLoading(false);
-
     },[])
 
     return {

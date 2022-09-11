@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
@@ -12,7 +13,9 @@ const Article = (props) => {
             <div className="h-[100%] flex flex-row justify-between gap-2">
                 <ThemeProvider theme={theme}>
                     <InfoOutlinedIcon onClick={props.onInfo} color="secondary"/>
-                    <BorderColorOutlinedIcon color="secondary"/>
+                    <Link to="/Edit">
+                        <BorderColorOutlinedIcon onClick={props.onEdit} color="secondary"/>
+                    </Link>
                     <DeleteOutlineOutlinedIcon onClick={props.onDelete} color="secondary"/>
                 </ThemeProvider>
             </div>

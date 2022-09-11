@@ -1,14 +1,12 @@
 import ReactDOM from "react-dom";
 import React, { useContext } from "react";
-import ArticlesContext from "../../store/articles-context";
-import useFetch from "../../hooks/use-fetch";
-import { ArticlesContextProvider } from "../../store/articles-context";
+import ArticlesContext from "../../../store/articles-context";
+import { ArticlesContextProvider } from "../../../store/articles-context";
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { ThemeProvider } from '@mui/system';
-import {theme} from "./theme";
+import {theme} from "../../UI/theme";
 
 const InformationModal = () => {
-
     const articlesCtx = useContext(ArticlesContext);
 
     if(!articlesCtx.infoModal){
@@ -18,7 +16,7 @@ const InformationModal = () => {
     const getArticlesIndex = () => {
         for (const i in articlesCtx.articles){
             if(articlesCtx.articles[i].id===articlesCtx.clickedArticle){
-                return i
+                return i;
             }
         }
     }
@@ -54,7 +52,6 @@ const InformationModal = () => {
                     <p className="ml-[5px] font-sans text-h4-mobile font-h4-mobile text-dark/300">{articlesCtx.articles[getArticlesIndex()].date}</p>
                 </li>
             </ul>
-            
         </div></ArticlesContextProvider>, document.body);
 }
 

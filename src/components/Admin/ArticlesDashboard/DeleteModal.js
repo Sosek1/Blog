@@ -1,15 +1,14 @@
 import ReactDOM from "react-dom";
 import React, { useContext } from "react";
-import ArticlesContext from "../../store/articles-context";
-import { ArticlesContextProvider } from "../../store/articles-context";
-import useFetch from "../../hooks/use-fetch";
+import ArticlesContext from "../../../store/articles-context";
+import { ArticlesContextProvider } from "../../../store/articles-context";
+import useFetch from "../../../hooks/use-fetch";
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import { ThemeProvider } from '@mui/system';
-import {theme} from "./theme";
+import {theme} from "../../UI/theme";
 
 
 const DeleteModal = (props) => {
-
     const{
         fetchHandler:fetchArticlesHandler
     } = useFetch();
@@ -28,7 +27,6 @@ const DeleteModal = (props) => {
         articlesCtx.onShowDeleteModal(false);  
     }
 
-    
     if(!articlesCtx.deleteModal){
         return;
     }
@@ -41,7 +39,7 @@ const DeleteModal = (props) => {
             </ThemeProvider>
             <p className="font-sans text-h4-mobile font-h4-mobile text-dark/300">Are you sure?</p>
             <button onClick={() => deleteArticleHandler(articlesCtx.clickedArticle)} className="mb-[20px] w-[100px] h-[40px] bg-blue/700 text-h4-mobile text-light/900 rounded-lg">Delete</button>
-        </div></ArticlesContextProvider>, document.body);
+        </div></ArticlesContextProvider>, document.body)
 };
 
 export default DeleteModal;

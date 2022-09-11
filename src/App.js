@@ -1,21 +1,29 @@
-import React, {useContext, useState, useEffect, useCallback} from "react";
-import LoginContext from "./store/login-context";
+import {Route} from 'react-router-dom';
 import Articles from "./components/Admin/ArticlesDashboard/Articles";
-import Homepage from "./components/Homepage/HomePage";
 import LoginForm from "./components/Login/LoginForm";
 import Upload from "./components/Admin/ArticlesUpload/Upload";
-import ArticlesContext from "./store/articles-context";
+import ArticlesEditForm from './components/Admin/ArticlesDashboard/ArticlesEditForm';
+import Homepage from './components/Homepage/HomePage';
+
 
 function App() {
-  const loginCtx = useContext(LoginContext);
-  const articlesCtx = useContext(ArticlesContext);
-
   return (
     <>
-      
-      {/* {<LoginForm/>} */}
+    <Route path="/Homepage">
+      <Homepage/>
+    </Route>
+    <Route path="/Login">
+      <LoginForm/>
+    </Route>
+    <Route path="/Upload">
       <Upload/>
-      {/* <Articles/> */}
+    </Route>
+    <Route path="/Articles">
+      <Articles/>
+    </Route>  
+    <Route path="/Edit">
+      <ArticlesEditForm/>
+    </Route>
     </>
   );
 }
