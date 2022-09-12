@@ -5,6 +5,8 @@ const Topbar = () => {
     const loginCtx = useContext(LoginContext);
     const textStyle = "font-sans text-h4-mobile font-h3-mobile text-dark/100";
 
+    console.log(loginCtx.isLoggedIn, loginCtx.loginScreen)
+
     return (
         <header className="h-[60px] bg-light-900 ml-[20px] mr-[20px] flex items-center justify-between">
             <div className="flex flex-row">
@@ -13,17 +15,17 @@ const Topbar = () => {
             </div>
             {!loginCtx.isLoggedIn && !loginCtx.loginScreen && <div className="flex flex-row">
                 <Link to="/Login">
-                    <p className={textStyle} onClick={() => loginCtx.onLogin(true)}>Log in</p>
+                    <p className={textStyle} onClick={() => loginCtx.onLoginScreen(true)}>Log in</p>
                 </Link>
             </div>}
             {!loginCtx.isLoggedIn && loginCtx.loginScreen && <div className="flex flex-row">
                 <Link to="/Homepage">
-                    <p className={textStyle} onClick={() => loginCtx.onLogin(false)}>Go back</p>
+                    <p className={textStyle} onClick={() => loginCtx.onLoginScreen(false)}>Go back</p>
                 </Link>
             </div>}
-            {loginCtx.isLoggedIn && !loginCtx.loginScreen && <div className="flex flex-row">
+            {(loginCtx.isLoggedIn && !loginCtx.loginScreen) && <div className="flex flex-row">
                 <Link to="/Homepage">
-                    <p className={textStyle} onClick={()=>{loginCtx.onLoggedIn(false);loginCtx.onLogin(false)}}>Log out</p>
+                    <p className={textStyle} onClick={()=>{loginCtx.onLoggedIn(false);loginCtx.onLoginScreen(false)}}>Log out</p>
                 </Link>
             </div>}
         </header>

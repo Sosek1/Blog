@@ -1,19 +1,23 @@
 import ReactDOM from "react-dom";
-import React, { useContext } from "react";
-import ArticlesContext from "../../../store/articles-context";
-import { ArticlesContextProvider } from "../../../store/articles-context";
-import useFetch from "../../../hooks/use-fetch";
+import {useArticles, useModals} from "../../store/articles-context";
+import { ArticlesContextProvider } from "../../store/articles-context";
+import useFetch from "../../hooks/use-fetch";
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import { ThemeProvider } from '@mui/system';
-import {theme} from "../../UI/theme";
+import {theme} from "../UI/theme";
 
 
 const DeleteModal = (props) => {
+    const articlesCtx = useArticles();
+    const modalsCtx = useModals();
+
     const{
         fetchHandler:fetchArticlesHandler
     } = useFetch();
 
-    const articlesCtx = useContext(ArticlesContext);
+    if(!modalsCtx.deleteModal){
+        return;
+    }
 
     const deleteArticleHandler = async (id) => {
         const respone = await fetch(`https://blog-ef31e-default-rtdb.europe-west1.firebasedatabase.app/Articles/${id}.json`,{
@@ -24,11 +28,7 @@ const DeleteModal = (props) => {
             }
         })
         fetchArticlesHandler();
-        articlesCtx.onShowDeleteModal(false);  
-    }
-
-    if(!articlesCtx.deleteModal){
-        return;
+        modalsCtx.onShowDeleteModal(false);  
     }
 
     return ReactDOM.createPortal(

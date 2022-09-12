@@ -1,8 +1,8 @@
-import {useCallback, useContext} from 'react';
-import ArticlesContext from '../store/articles-context';
+import {useCallback} from 'react';
+import { useArticles } from '../store/articles-context';
 
 const useFetch = () => {
-    const articlesCtx = useContext(ArticlesContext)
+    const articlesCtx = useArticles();
     
     const fetchArticlesHandler = useCallback(async () => {
         articlesCtx.onLoading(true);

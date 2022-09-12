@@ -1,9 +1,9 @@
-import { useState, useContext } from "react";
-import ArticlesContext from "../../../store/articles-context";
+import { useState } from "react";
+import { useArticles } from "../../../store/articles-context";
 
 const CategoryList = (props) => {
 
-    const articlesCtx = useContext(ArticlesContext);
+    const articlesCtx = useArticles();
 
     const [crypto, setCrypto] = useState(false);
     const [finance, setFinance] = useState(false);

@@ -1,6 +1,6 @@
 import { ArticlesContextProvider } from "../../../store/articles-context";
-import BottomNav from "../../UI/BottomNav";
-import Topbar from "../../UI/Topbar";
+import BottomNav from "../../Nav/BottomNav";
+import Topbar from "../../Nav/Topbar";
 import UploadForm from "./UploadForm";
 
 

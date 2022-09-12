@@ -1,15 +1,15 @@
 import { useState} from "react";
 import { ArticlesContextProvider } from "../../../store/articles-context";
-import BottomNav from "../../UI/BottomNav";
-import Topbar from "../../UI/Topbar";
+import BottomNav from "../../Nav/BottomNav";
+import Topbar from "../../Nav/Topbar";
 import ArticlesList from "./ArticlesList";
-import SearchBar from "../../UI/SearchBar";
-import Overlay from "../../UI/Overlay";
+import SearchBar from "./SearchBar";
+import Overlay from "../../Modals/Overlay";
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import { ThemeProvider } from '@mui/system';
 import {theme} from "../../UI/theme";
-import InformationModal from "./InformationModal";
-import DeleteModal from "./DeleteModal";
+import InformationModal from "../../Modals/InformationModal";
+import DeleteModal from "../../Modals/DeleteModal";
 import ArticlesFilter from "./ArticlesFilter";
 
 const Articles = () => {

@@ -1,6 +1,6 @@
-import React, { useState} from 'react';
+import React, {useState, useContext} from 'react';
 
-const ArticlesContext = React.createContext({
+export const ArticlesContext = React.createContext({
     articles:[],
     authors:[],
     categories:[],
@@ -16,12 +16,24 @@ const ArticlesContext = React.createContext({
     onClickArticleIndex:()=>{},
     onLoading:()=>{},
     onError:()=>{},
+});
 
+export const ModalsContext = React.createContext({
     deleteModal: false,
     infoModal: false,
+    invalidFormModal:false,
     onShowDeleteModal:()=>{},
     onShowInfoModal:()=>{},
-});
+    onShowInvalidModal:()=>{}
+})
+
+export const useArticles = () => {
+    return useContext(ArticlesContext)
+}
+
+export const useModals = () => {
+    return useContext(ModalsContext)
+}
 
 export const ArticlesContextProvider = (props) => {
     const [articles, setArticles] = useState([]);
@@ -34,6 +46,7 @@ export const ArticlesContextProvider = (props) => {
 
     const [deleteModal, setShowDeleteModal] = useState(false);
     const [infoModal, setShowInfoModal] = useState(false);
+    const [invalidFormModal, setInvalidFormModal] = useState(false);
 
     const addArticleHandler = (articleData) => {
         setArticles(articleData);
@@ -76,20 +89,21 @@ export const ArticlesContextProvider = (props) => {
     }
 
     const infoModalHander = (show) => {
-        setShowInfoModal(show)  ;
+        setShowInfoModal(show);
+    }
+
+    const invalidFormHandler = (show) => {
+        setInvalidFormModal(show);
     }
 
     return(
-        <ArticlesContext.Provider value={{
-            articles,
+        <ArticlesContext.Provider value={{articles,
             authors,
             categories,
             error,
             isLoading,
             clickedArticle,
             clickedArticleIndex,
-            deleteModal,
-            infoModal,
             onAddArticles: addArticleHandler,
             onAddAuthors:addAuthorHandler,
             onAddCategories: addCategoriesHandler,
@@ -98,12 +112,17 @@ export const ArticlesContextProvider = (props) => {
             onLoading: isLoadingHandler,
             onClickArticle: clickArticleHandler,
             onClickArticleIndex:clickArticleIndexHandler,
-            onShowDeleteModal: deleteModalHandler,
-            onShowInfoModal: infoModalHander,
-        }}>
-            {props.children}
+           }}>
+            <ModalsContext.Provider value={{ 
+                deleteModal,
+                infoModal, 
+                invalidFormModal,
+                onShowDeleteModal: deleteModalHandler,
+                onShowInfoModal: infoModalHander,
+                onShowInvalidModal:invalidFormHandler
+                }}>
+                {props.children}
+            </ModalsContext.Provider>
         </ArticlesContext.Provider>
     )
 }
-
-export default ArticlesContext;

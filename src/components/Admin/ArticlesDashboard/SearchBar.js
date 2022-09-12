@@ -1,6 +1,6 @@
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { ThemeProvider } from '@mui/system';
-import {theme} from "./theme";
+import {theme} from "../../UI/theme";
 
 const SearchBar = () => {
     return (

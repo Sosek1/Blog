@@ -1,15 +1,16 @@
-import { useEffect, useState, useContext} from "react";
+import { useEffect, useState} from "react";
+import { Link } from "react-router-dom";
 import useFetch from "../../../hooks/use-fetch";
 import CategoryList from "../ArticlesUpload/CategoryList";
-import ArticlesContext from "../../../store/articles-context";
-import Topbar from "../../UI/Topbar";
-import BottomNav from "../../UI/BottomNav";
-
-const isEmpty = value => value.trim() === '';
+import { useArticles, useModals } from "../../../store/articles-context";
+import Topbar from "../../Nav/Topbar";
+import BottomNav from "../../Nav/BottomNav";
+import Overlay from "../../Modals/Overlay";
+import InvalidFormModal from "../../Modals/InvalidFormModal";
 
 const ArticlesEditForm = () => {
    
-    const articlesCtx = useContext(ArticlesContext);
+    const articlesCtx = useArticles();
 
     // const getArticlesIndex = () => {
     //     for (const i in articlesCtx.articles){
@@ -25,6 +26,8 @@ const ArticlesEditForm = () => {
     const [updateSubtitle, setUpdateSubtitle] = useState("");
     const [updateAuthor, setUpdateAuthor] = useState("");
     const [updateArticle, setUpdateArticle] = useState("");
+
+    const modalsCtx = useModals();
 
     const {
         fetchHandler: fetchArticlesHandler
@@ -57,8 +60,30 @@ const ArticlesEditForm = () => {
         });
     }
 
+    let formIsValid = updateTitle != "" && updateSubtitle != "" && updateAuthor != "" && updateArticle != ""; 
+
     const submitFormHandler = (event) => {
         event.preventDefault();
+
+        if(updateTitle == ""){
+            modalsCtx.onShowInvalidModal(true);
+            return;
+        }
+
+        if(updateSubtitle == ""){
+            modalsCtx.onShowInvalidModal(true);
+            return;
+        }
+
+        if(updateAuthor == ""){
+            modalsCtx.onShowInvalidModal(true);
+            return;
+        }
+
+        if(updateArticle == ""){
+            modalsCtx.onShowInvalidModal(true);
+            return;
+        }
 
         const articleData = {
             title:updateTitle,
@@ -70,7 +95,6 @@ const ArticlesEditForm = () => {
 
         updateArticleHandler(articleData);
        
-
         setUpdateTitle("");
         setUpdateSubtitle("");
         setUpdateAuthor("");
@@ -78,8 +102,9 @@ const ArticlesEditForm = () => {
 
     }   
 
+    const ConditionalLink = ({children, to, condition}) => (!!condition && to) ? <Link to={to}>{children}</Link> : <>{children}</>
+    
     return (
-        
         <div className="h-[100vh] flex justify-between flex-col">
             <Topbar/>
             <div className="h-[100%] overflow-scroll">
@@ -93,13 +118,17 @@ const ArticlesEditForm = () => {
                     <label className="ml-[20px] mb-[20px] font-sans text-h4-mobile font-h4-mobile text-dark/500">Category</label>
                     <CategoryList />
                     <label className="ml-[20px] mb-[20px] font-sans text-h4-mobile font-h4-mobile text-dark/500">Article's content</label>
+                    <InvalidFormModal/>
+                    <Overlay/>
                     <textarea id="article" name="article" onChange={updateArticleChangeHandler} value={updateArticle} className="custom-width min-h-[200px] mb-[20px] ml-[20px] p-[5px] focus:outline-none border-2 border-blue/700 rounded-lg" placeholder="text"></textarea>
+                    {/* <ConditionalLink to="/Articles" condition={formIsValid}>
+                    <button className="h-[40px] custom-width ml-[20px] mb-[20px] text-h4-mobile font-h4-mobile text-light/900 bg-blue/700 rounded-lg">Upload an article</button>
+                    </ConditionalLink> */}
                     <button className="h-[40px] custom-width ml-[20px] mb-[20px] text-h4-mobile font-h4-mobile text-light/900 bg-blue/700 rounded-lg">Upload an article</button>
                 </form>
             </div>
             <BottomNav/>
-        </div>
-        
+        </div>  
     )
 }
 

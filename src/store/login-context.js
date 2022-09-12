@@ -1,9 +1,9 @@
-import React, {createContext, useState} from "react";
+import React, { useState } from "react";
 
 const LoginContext = React.createContext({
     isLoggedIn: false,
     loginScreen:false,
-    onLogin: () => {},
+    onLoginScreen: () => {},
     onLoggedIn: () => {}
 });
 
@@ -15,7 +15,7 @@ export const LoginContextProvider = (props) => {
         setIsLoggedIn(value);
     }
 
-    const loginHandler = (value) => {
+    const loginScreenHandler = (value) => {
         setLoginScreen(value);
     }
 
@@ -24,7 +24,7 @@ export const LoginContextProvider = (props) => {
         value={{
             isLoggedIn,
             loginScreen,
-            onLogin: loginHandler,
+            onLoginScreen: loginScreenHandler,
             onLoggedIn: loggedInHandler
         }}>
             {props.children}

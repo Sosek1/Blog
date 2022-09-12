@@ -1,8 +1,8 @@
-import {useEffect, useContext, useCallback} from 'react'
-import ArticlesContext from "../../../store/articles-context";
+import {useEffect, useCallback} from 'react'
+import { useArticles } from '../../../store/articles-context';
 
 const AuthorsList = (props) => {
-    const articlesCtx = useContext(ArticlesContext);
+    const articlesCtx = useArticles();
 
     const fetchAuthorsHandler = useCallback(async () => {
         try{

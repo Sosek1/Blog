@@ -3,7 +3,7 @@ import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import { ThemeProvider } from '@mui/system';
-import {theme} from "./theme";
+import {theme} from "../UI/theme";
 
 const BottomNav = () => {
     return(

@@ -1,15 +1,15 @@
 import ReactDOM from "react-dom";
-import React, { useContext } from "react";
-import ArticlesContext from "../../../store/articles-context";
-import { ArticlesContextProvider } from "../../../store/articles-context";
+import {useModals} from "../../store/articles-context";
+import { ArticlesContextProvider } from "../../store/articles-context";
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { ThemeProvider } from '@mui/system';
-import {theme} from "../../UI/theme";
+import {theme} from "../UI/theme";
 
 const InformationModal = () => {
-    const articlesCtx = useContext(ArticlesContext);
+    const articlesCtx = useModals();
+    const modalsCtx = useModals();
 
-    if(!articlesCtx.infoModal){
+    if(!modalsCtx.infoModal){
         return;
     }
 

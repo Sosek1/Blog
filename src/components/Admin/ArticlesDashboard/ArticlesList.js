@@ -1,19 +1,19 @@
-import { useEffect, useContext } from "react";
+import { useEffect } from "react";
 import Article from "./Article";
-import ArticlesContext from "../../../store/articles-context";
 import useFetch from "../../../hooks/use-fetch";
+import {useArticles, useModals} from "../../../store/articles-context";
 
 const ArticlesList = () => {
+    const articlesCtx = useArticles();
+    const modalsCtx = useModals();
+
     const {
        fetchHandler: fetchArticlesHandler
     } = useFetch();
-    
-    const articlesCtx = useContext(ArticlesContext);
 
     useEffect(()=>{
         fetchArticlesHandler();
     },[fetchArticlesHandler]);
-
 
     const articleIdHandler = (id) => {
         articlesCtx.onClickArticle(id);
@@ -21,11 +21,11 @@ const ArticlesList = () => {
     }
 
     const infoModalHandler = () => {
-        articlesCtx.onShowInfoModal(true);
+        modalsCtx.onShowInfoModal(true);
     }
 
     const deleteModalHandler = () => {
-        articlesCtx.onShowDeleteModal(true);
+        modalsCtx.onShowDeleteModal(true);
     }
 
     return (

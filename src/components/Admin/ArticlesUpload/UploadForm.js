@@ -1,20 +1,23 @@
-import { useState, useContext, useEffect} from "react";
+import { useState, useEffect} from "react";
+import {useArticles, useModals} from "../../../store/articles-context";
+import {Link} from "react-router-dom";
 import AuthorsList from "./AuthorsList";
+import InvalidFormModal from "../../Modals/InvalidFormModal";
+import Overlay from "../../Modals/Overlay";
 import CategoryList from "./CategoryList";
 import useFetch from "../../../hooks/use-fetch";
 import useInput from "../../../hooks/use-input";
-import ArticlesContext from "../../../store/articles-context";
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
 import { ThemeProvider } from '@mui/system';
 import {theme} from "../../UI/theme";
 
-const isEmpty = value => value.trim() === '';
-
 const UploadForm = (props) => {
     const {
         fetchHandler: fetchArticlesHandler
      } = useFetch();
+
+     const isEmpty = value => value.trim() !== '';
 
      const {
         value: titleValue,
@@ -50,13 +53,16 @@ const UploadForm = (props) => {
          fetchArticlesHandler();
      },[fetchArticlesHandler]);
 
+     
+
      let today = new Date();
      let day = String(today.getDate()).padStart(2,'0');
      let month = String(today.getMonth() + 1).padStart(2,'0');
      let year = String(today.getFullYear());
      const todaysDate = day + "." + month + "." + year;
 
-    const articlesCtx = useContext(ArticlesContext);
+    const articlesCtx = useArticles();
+    const modalsCtx = useModals();
 
     const addArticleHandler = async (article) => {
         const response = await fetch('https://blog-ef31e-default-rtdb.europe-west1.firebasedatabase.app/Articles.json',{
@@ -93,21 +99,30 @@ const UploadForm = (props) => {
         setshowAuthorsList(!showAuthorsList)
     }
 
+    let formIsValid = titleIsValid && subtitleIsValid && authorIsValid && articleIsValid;
+
     const submitFormHandler = (event) => {
         event.preventDefault();
 
-        // if(!titleIsValid){
-        //     return;
-        // }
-        // if(!subtitleIsValid){
-        //     return;
-        // }
-        // if(!authorIsValid){
-        //     return;
-        // }
-        // if(!articleIsValid){
-        //     return;
-        // }
+        if(!titleIsValid){
+            modalsCtx.onShowInvalidModal(true);
+            return;
+        }
+
+        if(!subtitleIsValid){
+            modalsCtx.onShowInvalidModal(true);
+            return;
+        }
+
+        if(!authorIsValid){
+            modalsCtx.onShowInvalidModal(true);
+            return;
+        }
+
+        if(!articleIsValid){
+            modalsCtx.onShowInvalidModal(true);
+            return;
+        }
 
         const articleData = {
             title:titleValue,
@@ -135,6 +150,8 @@ const UploadForm = (props) => {
         articlesCtx.onAddCategories([]);
     }
 
+    const ConditionalLink = ({children, to, condition}) => (!!condition && to) ? <Link to={to}>{children}</Link> : <>{children}</>
+
     return (
             <form onSubmit={submitFormHandler} className="flex flex-col  justify-between">
                 <label className="ml-[20px] mb-[20px] font-sans text-h4-mobile font-h4-mobile text-dark/500">Title</label>
@@ -152,8 +169,13 @@ const UploadForm = (props) => {
                 </div>
                 <label className="ml-[20px] mb-[20px] font-sans text-h4-mobile font-h4-mobile text-dark/500">Category</label>
                 <CategoryList/>
+                <InvalidFormModal/>
+                <Overlay/>
                 <label className="ml-[20px] mb-[20px] font-sans text-h4-mobile font-h4-mobile text-dark/500">Article's content</label>
                 <textarea id="article" name="article" onChange={articleChangeHandler} value={articleValue} className="custom-width min-h-[300px] mb-[20px] ml-[20px] p-[5px] focus:outline-none border-2 border-blue/700 rounded-lg" placeholder="text"></textarea>
+                {/* <ConditionalLink to="/Articles" condition={formIsValid}>
+                    <button className="h-[40px] custom-width ml-[20px] mb-[20px] text-h4-mobile font-h4-mobile text-light/900 bg-blue/700 rounded-lg">Upload an article</button>
+                </ConditionalLink> */}
                 <button className="h-[40px] custom-width ml-[20px] mb-[20px] text-h4-mobile font-h4-mobile text-light/900 bg-blue/700 rounded-lg">Upload an article</button>
             </form>
     )

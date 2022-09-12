@@ -1,8 +1,8 @@
 import React, {useContext} from "react";
-import {Link} from "react-router-dom"
+import {Link} from "react-router-dom";
 import useInput from "../../hooks/use-input";
 import LoginContext from "../../store/login-context";
-import Topbar from "../UI/Topbar";
+import Topbar from "../Nav/Topbar";
 import { loginValidation, passwordValidation } from "./LoginDataAuth";
 
 const Login = () => {
@@ -46,13 +46,11 @@ const Login = () => {
         if(!enteredPasswordIsValid){
             return;
         }
+        loginCtx.onLoggedIn(true);
+        loginCtx.onLoginScreen(false);
         resetLoginInput('');
         resetpasswordInput('');
-        loginCtx.onLoggedIn(true);
-        loginCtx.onLogin(false);
     }
-
-    
 
     const buttonStyles = formIsValid 
     ? "h-[40px] w-[100%] mt-[30px] mb-[30px] rounded-[10px] bg-blue/700 text-h4-mobile font-h4-mobile text-light/900" 
